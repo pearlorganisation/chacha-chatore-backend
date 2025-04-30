@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import morgan from "morgan";
+import { errorHandler } from "./src/utils/error/errorHandler.js";
 
 const app = express();
 
@@ -26,11 +27,17 @@ app.use(cookieParser());
 app.use(morgan("dev"));
 
 //Routes Imports
+import authRoutes from "./src/routes/auth/auth.js";
+import blogRoutes from "./src/routes/blog/blog.js";
 
 app.get("/", (req, res) => {
   res.status(200).send("APIs are working...");
 });
 
 // Routes Definitions
+app.use("/api/v1/auth", authRoutes);
+app.use("/api/v1/blogs", blogRoutes);
+
+app.use(errorHandler);
 
 export { app };

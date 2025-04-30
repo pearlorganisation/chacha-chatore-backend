@@ -1,4 +1,4 @@
-export const DB_NAME = "Bimal_DB";
+export const DB_NAME = "chacha-chatore-DB";
 
 export const COOKIE_OPTIONS = {
   httpOnly: true,
