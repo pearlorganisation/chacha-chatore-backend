@@ -3,16 +3,6 @@ import User from "../../models/user/user.js";
 import ApiError from "../../utils/error/ApiError.js";
 import { asyncHandler } from "../../utils/error/asynchandler.js";
 
-export const register = asyncHandler(async (req, res, next) => {
-  const user = await User.create({
-    name: req.body.name,
-    email: req.body.email,
-    password: req.body.password,
-    role: req.body.role,
-  });
-  res.status(201).json({ sucess: true });
-});
-
 export const login = asyncHandler(async (req, res, next) => {
   const { email, password } = req?.body;
   if (!email || !password) {

@@ -5,3 +5,10 @@ export const COOKIE_OPTIONS = {
   sameSite: process.env.NODE_ENV === "production" ? "None" : "Strict",
   secure: process.env.NODE_ENV !== "development",
 };
+
+export const USER_ROLES_ENUM = {
+  USER: "USER",
+  ADMIN: "ADMIN",
+};
+
+export const AVAILABLE_USER_ROLES = Object.values(USER_ROLES_ENUM);
