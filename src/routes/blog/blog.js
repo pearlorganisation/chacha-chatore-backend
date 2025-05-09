@@ -24,19 +24,23 @@ router
     createBlog
   ) // Create a blog post
   .get(getAllBlogs); // Get all blog posts
+
 router
   .route("/:slug")
   .get(getBlogBySlug) // Get a blog post by ID
-  .delete(
-    authenticateToken,
-    verifyPermission([USER_ROLES_ENUM.ADMIN]),
-    deleteBlogbyId
-  ) // Delete a blog post by ID
   .patch(
     authenticateToken,
     verifyPermission([USER_ROLES_ENUM.ADMIN]),
     upload.single("thumbImage"),
     updateBlogBySlug
   ); // Update a blog post by ID
+
+router
+  .route("/:id")
+  .delete(
+    authenticateToken,
+    verifyPermission([USER_ROLES_ENUM.ADMIN]),
+    deleteBlogbyId
+  );
 
 export default router;
