@@ -29,6 +29,7 @@ app.use(morgan("dev"));
 //Routes Imports
 import authRoutes from "./src/routes/auth/auth.js";
 import blogRoutes from "./src/routes/blog/blog.js";
+import userRoutes from "./src/routes/user/user.js";
 
 app.get("/", (req, res) => {
   res.status(200).send("APIs are working...");
@@ -36,6 +37,7 @@ app.get("/", (req, res) => {
 
 // Routes Definitions
 app.use("/api/v1/auth", authRoutes);
+app.use("/api/v1/users", userRoutes);
 app.use("/api/v1/blogs", blogRoutes);
 
 app.use(errorHandler);
