@@ -14,6 +14,8 @@ app.use(
             "http://localhost:3000",
             "http://localhost:3002",
             "http://localhost:3001",
+            "http://localhost:5173",
+            "http://localhost:5174",
           ]
         : "*", // Replace with your production domain
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"], // Specify allowed HTTP methods
