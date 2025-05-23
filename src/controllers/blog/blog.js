@@ -8,7 +8,21 @@ import { asyncHandler } from "../../utils/error/asynchandler.js";
 import { paginate } from "../../utils/pagination.js";
 
 export const createBlog = asyncHandler(async (req, res, next) => {
+
+
+  const {content, author, title} = req?.body
+
+  let slug = title.toLowerCase().split(" ").join("-")
+
+
+  const blogExists = await Blog.findOne({slug: slug})
+
+  if(blogExists) {
+    return res.status(400).json({success: false, message: "A Blog with the same title/slug already exists, please update your title." })
+  }
+
   const thumbImage = req.file;
+
   let thumbImageResponse = null;
   if (thumbImage) {
     thumbImageResponse = await uploadFileToCloudinary(thumbImage, "Blogs"); // Res-> [{}]

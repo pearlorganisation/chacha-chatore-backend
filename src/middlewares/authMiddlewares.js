@@ -8,6 +8,8 @@ export const authenticateToken = asyncHandler(async (req, res, next) => {
     req.cookies?.access_token ||
     req.header("Authorization")?.replace("Bearer ", "");
 
+  console.log(token)
+
   if (!token) {
     return next(new ApiError("Unauthorized user", 401));
   }

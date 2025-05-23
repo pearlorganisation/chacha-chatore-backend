@@ -17,8 +17,8 @@ export const login = asyncHandler(async (req, res, next) => {
     return next(new ApiError("Wrong password", 400));
   }
 
-  const access_token = existingUser.generateAccessToken();
-  const refresh_token = existingUser.generateRefreshToken();
+  const access_token = await existingUser.generateAccessToken();
+  const refresh_token = await existingUser.generateRefreshToken();
 
   // Convert Mongoose document to plain object
   const sanitizedUser = existingUser.toObject();
@@ -26,6 +26,7 @@ export const login = asyncHandler(async (req, res, next) => {
   sanitizedUser.createdAt = undefined;
   sanitizedUser.updatedAt = undefined;
   sanitizedUser.__v = undefined;
+
 
   res
     .cookie("access_token", access_token, {
@@ -41,6 +42,7 @@ export const login = asyncHandler(async (req, res, next) => {
       success: true,
       message: "Login Successfull",
       user: sanitizedUser,
+      token: refresh_token
     });
 });
 
