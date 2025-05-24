@@ -9,7 +9,7 @@ import { paginate } from "../../utils/pagination.js";
 
 export const createBlog = asyncHandler(async (req, res, next) => {
 
-  const { content, author, title } = req?.body
+  const { content, title } = req?.body
 
   let slug = title.toLowerCase().split(" ").join("-")
 
