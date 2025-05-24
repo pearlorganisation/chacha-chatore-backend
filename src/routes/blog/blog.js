@@ -8,7 +8,7 @@ import {
 } from "../../controllers/blog/blog.js";
 import { upload } from "../../middlewares/multerMiddlware.js";
 import {
-  authenticateToken,
+  authenticateRefreshToken,
   verifyPermission,
 } from "../../middlewares/authMiddlewares.js";
 import { USER_ROLES_ENUM } from "../../../constants.js";
@@ -18,7 +18,7 @@ const router = express.Router();
 router
   .route("/")
   .post(
-    authenticateToken,
+    authenticateRefreshToken,
     verifyPermission([USER_ROLES_ENUM.ADMIN]),
     upload.single("thumbImage"),
     createBlog
@@ -29,7 +29,7 @@ router
   .route("/:slug")
   .get(getBlogBySlug) // Get a blog post by ID
   .patch(
-    authenticateToken,
+    authenticateRefreshToken,
     verifyPermission([USER_ROLES_ENUM.ADMIN]),
     upload.single("thumbImage"),
     updateBlogBySlug
@@ -38,7 +38,7 @@ router
 router
   .route("/:id")
   .delete(
-    authenticateToken,
+    authenticateRefreshToken,
     verifyPermission([USER_ROLES_ENUM.ADMIN]),
     deleteBlogbyId
   );

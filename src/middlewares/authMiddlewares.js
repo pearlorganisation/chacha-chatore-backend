@@ -24,6 +24,31 @@ export const authenticateToken = asyncHandler(async (req, res, next) => {
   next();
 });
 
+
+
+export const authenticateRefreshToken = asyncHandler(async (req, res, next) => {
+  const token =
+    req.cookies?.refresh_token ||
+    req.header("Authorization")?.replace("Bearer ", "");
+
+  console.log(token)
+
+  if (!token) {
+    return next(new ApiError("Unauthorized user", 401));
+  }
+  const decoded = jwt.verify(token, process.env.REFRESH_TOKEN_SECRET);
+  const user = await User.findById(decoded._id).select(
+    "-password -refreshToken"
+  );
+  if (!user) {
+    return next(new ApiError("Invalid access token!", 401));
+  }
+  req.user = user;
+  next();
+});
+
+
+
 export const verifyPermission = (roles = []) =>
   asyncHandler(async (req, res, next) => {
     if (!req.user?._id) {

@@ -9,29 +9,29 @@ import { paginate } from "../../utils/pagination.js";
 
 export const createBlog = asyncHandler(async (req, res, next) => {
 
-
-  const {content, author, title} = req?.body
+  const { content, author, title } = req?.body
 
   let slug = title.toLowerCase().split(" ").join("-")
 
+  const blogExists = await Blog.findOne({ slug: slug })
 
-  const blogExists = await Blog.findOne({slug: slug})
-
-  if(blogExists) {
-    return res.status(400).json({success: false, message: "A Blog with the same title/slug already exists, please update your title." })
+  if (blogExists) {
+    return res.status(400).json({ success: false, message: "A Blog with the same title/slug already exists, please update your title." })
   }
 
   const thumbImage = req.file;
 
   let thumbImageResponse = null;
   if (thumbImage) {
-    thumbImageResponse = await uploadFileToCloudinary(thumbImage, "Blogs"); // Res-> [{}]
+    thumbImageResponse = await uploadFileToCloudinary(thumbImage, "Blogs");
   }
 
   const blog = await Blog.create({
-    ...req.body,
+    content,
+    slug,
+    title,
     author: req.user._id,
-    thumbImage: (thumbImageResponse && thumbImageResponse[0]) || null, // If no image null will set, undefined ignored the field
+    thumbImage: (thumbImageResponse && thumbImageResponse[0]) || null,
   });
 
   if (!blog) {
@@ -43,6 +43,7 @@ export const createBlog = asyncHandler(async (req, res, next) => {
     message: "Blog post created successfully",
     data: blog,
   });
+
 });
 
 export const getAllBlogs = asyncHandler(async (req, res, next) => {
@@ -102,7 +103,7 @@ export const getBlogBySlug = asyncHandler(async (req, res, next) => {
 export const updateBlogBySlug = asyncHandler(async (req, res, next) => {
   const { slug } = req.params;
   const thumbImage = req.file;
-  
+
   // Fetch the blog post to check for existing thumbImage
   const existingBlog = await Blog.findOne({ slug });
   if (!existingBlog) {
