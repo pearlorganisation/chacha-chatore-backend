@@ -16,8 +16,11 @@ app.use(
             "http://localhost:3001",
             "http://localhost:5173",
             "http://localhost:5174",
+            "https://bimalinstitute.com",
           ]
-        : "*", // Replace with your production domain
+        : [
+          "https://bimalinstitute.com"
+        ], 
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"], // Specify allowed HTTP methods
     allowedHeaders: ["Content-Type", "Authorization"], // Specify allowed headers
     credentials: true,
