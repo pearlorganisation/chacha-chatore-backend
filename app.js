@@ -4,7 +4,7 @@ import cookieParser from "cookie-parser";
 import morgan from "morgan";
 import { errorHandler } from "./src/utils/error/errorHandler.js";
 
-const app = express();
+const app = express(); 
 
 app.use(
   cors({
