@@ -17,7 +17,7 @@ app.use(
           "http://localhost:5173",
           "http://localhost:5174",
           "https://bimalinstitute.com",
-          "https://www.bimalinstitute.com",
+          "https://www.bimalinstitute.com", 
         ]
         : [
           "https://bimalinstitute.com",
