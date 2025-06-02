@@ -22,6 +22,7 @@ app.use(
         : [
           "https://bimalinstitute.com",
           "https://www.bimalinstitute.com",
+          "http://localhost:3000"
         ],
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"], // Specify allowed HTTP methods
     allowedHeaders: ["Content-Type", "Authorization"], // Specify allowed headers
